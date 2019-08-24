@@ -5,7 +5,6 @@ local files = {
 local repo = "RMuskovets/OCOS"
 
 local fs = require "filesystem"
--- local io = require "io"
 
 function print(...)
 	local args = table.pack(...)
@@ -23,7 +22,6 @@ for index, file in pairs(files) do
 	local handle=component.proxy(component.list("internet")()).request("https://raw.githubusercontent.com/"..repo..[[/master/]]..file)
 	local data, chunk = ""
 	while true do chunk=handle.read(math.huge) if chunk then data=data..chunk else break end end handle.close()
-	-- load(data)
 	local fh = io.open(file, "w")
 	if not fh:write(data) then
 		print("Failed writing file " .. file)
